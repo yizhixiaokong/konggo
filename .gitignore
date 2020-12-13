@@ -1,3 +1,14 @@
 .vscode/
 .env
+
+.Idea
+
 go.sum
+
+*.exe
+
+*.log
+
+*.db
+
+static/
