@@ -34,7 +34,7 @@ func (e *ResError) Equal(err error) bool {
 }
 
 func (e *ResError) AddMsg(s interface{}) *ResError {
-	e.message = e.message + fmt.Sprint(s)
+	e.message = e.message + " " + fmt.Sprint(s)
 	return e
 }
 
@@ -58,12 +58,6 @@ func Cause(err error) *ResError {
 	return e
 }
 
-func ErrNeedLogin() *ResError    { return NewError(StatusNeedLogin, MsgNeedLogin) }
-func ErrServer() *ResError       { return NewError(StatusServerError, MsgServerError) }
-func ErrInvalidParam() *ResError { return NewError(StatusInvalidParam, MsgInvalidParam) }
-func ErrNotExist() *ResError     { return NewError(StatusTargetNotExist, MsgTargetNotExist) }
-func ErrIsExist() *ResError      { return NewError(StatusTargetIsExist, MsgTargetIsExist) }
-func ErrUnrealized() *ResError   { return NewError(StatusUnrealized, MsgUnrealized) }
 func ErrInvalidParams(err interface{}) *ResError {
 	msg := MsgInvalidParam
 	if err != nil {
@@ -71,3 +65,14 @@ func ErrInvalidParams(err interface{}) *ResError {
 	}
 	return NewError(StatusInvalidParam, msg)
 }
+
+func ErrNeedLogin() *ResError { return NewError(StatusNeedLogin, MsgNeedLogin) }
+
+func ErrServer() *ResError       { return NewError(StatusServerError, MsgServerError) }
+func ErrInvalidParam() *ResError { return NewError(StatusInvalidParam, MsgInvalidParam) }
+func ErrUnrealized() *ResError   { return NewError(StatusUnrealized, MsgUnrealized) }
+
+func ErrNotExist() *ResError  { return NewError(StatusTargetNotExist, MsgTargetNotExist) }
+func ErrIsExist() *ResError   { return NewError(StatusTargetIsExist, MsgTargetIsExist) }
+func ErrCantExec() *ResError  { return NewError(StatusCantExce, MsgCantExce) }
+func ErrExecFaild() *ResError { return NewError(StatusExceFaild, MsgExceFaild) }

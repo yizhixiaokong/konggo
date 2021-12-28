@@ -12,30 +12,38 @@ import (
 func NewRouter() *gin.Engine {
 	r := gin.Default()
 
+	//固定路由
+	apiHttpPrefix := "/api/v1"
+
 	// 中间件, 顺序不能改
 	r.Use(middleware.Session(os.Getenv("SESSION_SECRET")))
 	r.Use(middleware.Cors())
 	r.Use(middleware.CurrentUser())
 
 	// 路由
-	v1 := r.Group("/api/v1") //固定路由
-	{
-		v1.POST("ping", api.Ping)
+	rg := r.Group(apiHttpPrefix)
 
-		// 用户注册
-		v1.POST("user/register", api.UserRegister)
+	registerLogin(rg)
 
-		// 用户登录
-		v1.POST("user/login", api.UserLogin)
-
-		// 需要登录保护的
-		auth := v1.Group("")
-		auth.Use(middleware.AuthRequired())
-		{
-			// User Routing
-			auth.GET("user/me", api.UserMe)
-			auth.DELETE("user/logout", api.UserLogout)
-		}
-	}
 	return r
+}
+
+func registerLogin(rg *gin.RouterGroup) {
+	// Ping
+	rg.POST("ping", api.Ping)
+
+	// 用户注册
+	rg.POST("user/register", api.UserRegister)
+
+	// 用户登录
+	rg.POST("user/login", api.UserLogin)
+
+	// 需要登录保护的
+	auth := rg.Group("")
+	auth.Use(middleware.AuthRequired())
+	{
+		// User Routing
+		auth.GET("user/me", api.UserMe)
+		auth.DELETE("user/logout", api.UserLogout)
+	}
 }
