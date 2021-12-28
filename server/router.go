@@ -24,6 +24,7 @@ func NewRouter() *gin.Engine {
 	rg := r.Group(apiHttpPrefix)
 
 	registerLogin(rg)
+	registerExample(rg)
 
 	return r
 }
@@ -49,4 +50,14 @@ func registerLogin(rg *gin.RouterGroup) {
 		auth.GET("user/me", api.UserMe)
 		auth.DELETE("user/logout", api.UserLogout)
 	}
+}
+
+func registerExample(rg *gin.RouterGroup) {
+	egr := rg.Group("/example")
+
+	egr.GET("/list", api.GetExampleList) // 获取样例列表
+	egr.GET("", api.GetExample)          // 获取样例
+	egr.POST("", api.PostExample)        // 添加样例
+	egr.PUT("", api.PutExample)          // 修改样例
+	egr.DELETE("", api.DeleteExample)    // 删除样例
 }
