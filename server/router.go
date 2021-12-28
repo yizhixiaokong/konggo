@@ -32,6 +32,9 @@ func registerLogin(rg *gin.RouterGroup) {
 	// Ping
 	rg.POST("ping", api.Ping)
 
+	// Version
+	rg.GET("version", api.Version)
+
 	// 用户注册
 	rg.POST("user/register", api.UserRegister)
 

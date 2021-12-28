@@ -75,6 +75,9 @@ func Errorf(format string, a ...interface{}) {
 		Handle.Error(fmt.Sprintf(format, a...))
 	}
 }
+func Errorp(param interface{}, err interface{}) {
+	Handle.Error(fmt.Sprintf("param: %+v, err: %v", param, err))
+}
 
 func Warn(msg ...string) {
 	if Encrypted {
