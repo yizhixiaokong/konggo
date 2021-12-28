@@ -13,6 +13,10 @@ var RedisClient *redis.Client
 
 // Redis 在中间件中初始化redis链接
 func Redis() {
+	if redisOpen := os.Getenv("REDIS_OPEN"); redisOpen == "false" {
+		return
+	}
+
 	db, _ := strconv.ParseUint(os.Getenv("REDIS_DB"), 10, 64)
 	client := redis.NewClient(&redis.Options{
 		Addr:       os.Getenv("REDIS_ADDR"),
