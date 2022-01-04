@@ -23,18 +23,22 @@ func NewRouter() *gin.Engine {
 	// 路由
 	rg := r.Group(apiHttpPrefix)
 
+	registerDebug(rg)
 	registerLogin(rg)
 	registerExample(rg)
 
 	return r
 }
 
-func registerLogin(rg *gin.RouterGroup) {
+func registerDebug(rg *gin.RouterGroup) {
 	// Ping
-	rg.POST("ping", api.Ping)
+	rg.POST("/debug/ping", api.Ping)
 
 	// Version
-	rg.GET("version", api.Version)
+	rg.GET("/debug/version", api.Version)
+}
+
+func registerLogin(rg *gin.RouterGroup) {
 
 	// 用户注册
 	rg.POST("user/register", api.UserRegister)
