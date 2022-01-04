@@ -4,9 +4,9 @@ import "fmt"
 
 //分页获取相关
 const (
-	APIValueDirectionDesc = 1   //降序
-	APIValueDirectionASC  = 2   //生序
-	APIMaxPageSize        = 100 //分页限制
+	APIValueDirectionDesc = 1  //降序
+	APIValueDirectionASC  = 2  //生序
+	APIMaxPageSize        = 50 //分页限制
 )
 
 const (
@@ -56,10 +56,10 @@ func (p *Page) Order(filed string) string {
 
 func (p *Page) Check() WebError {
 	if p.PageSize > APIMaxPageSize {
-		return NewError(StatusInvalidParam, MsgInvalidParam+": pageSize")
+		return NewError(StatusInvalidParam, MsgInvalidParam+": pageSize is too large")
 	}
 	if p.Direction > APIValueDirectionASC {
-		return NewError(StatusInvalidParam, MsgInvalidParam+": direction")
+		return NewError(StatusInvalidParam, MsgInvalidParam+": direction err")
 	}
 	if p.PageNo < 1 {
 		p.PageNo = 1
