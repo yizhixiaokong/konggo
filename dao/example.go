@@ -15,7 +15,7 @@ func GetExampleList(tx *gorm.DB, page common.Page) (total int, items []model.Exa
 	name := model.Example{}.TableName()
 	tx = tx.Table(name)
 
-	err = tx.Count(&total).Error //total
+	err = tx.Where("`deleted_at` IS NULL").Count(&total).Error //total
 	if total == 0 {
 		return total, items, err
 	}
